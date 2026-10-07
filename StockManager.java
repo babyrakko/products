@@ -37,6 +37,13 @@ public class StockManager
      */
     public void delivery(int id, int amount)
     {
+        Product foundProduct = findProduct(id);
+        if(foundProduct != null){
+            foundProduct.increaseQuantity(amount);
+        }
+        else{
+            System.out.println("Deliver failed :" + id + "does not exist");
+        }
     }
     
     /**
@@ -46,6 +53,11 @@ public class StockManager
      */
     public Product findProduct(int id)
     {
+        for (Product product : stockList){
+            if(product.getID() == id){
+                return product;
+            }
+        }
         return null;
     }
     
@@ -58,6 +70,10 @@ public class StockManager
      */
     public int numberInStock(int id)
     {
+        Product foundProduct = findProduct(id);
+        if (foundProduct != null){
+            return foundProduct.getQuantity();
+        }
         return 0;
     }
 
@@ -66,5 +82,8 @@ public class StockManager
      */
     public void printProductDetails()
     {
+        for (Product product : stockList){
+            System.out.println(product.toString());
+        }
     }
 }
